@@ -1,0 +1,67 @@
+Task 2. Swagger codegen.
+.yaml file
+openapi: 3.0.0
+info:
+  title: Server Management API
+  version: 1.0.0
+paths:
+  /servers:
+    get:
+      summary: Get all servers or search by name
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+    put:
+      summary: Create a new server
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Server'
+      responses:
+        '201':
+          description: Created
+    delete:
+      summary: Delete a server by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No Content
+  /servers/{id}:
+    get:
+      summary: Get a server by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+components:
+  schemas:
+    Server:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        language:
+          type: string
+        framework:
+          type: string
